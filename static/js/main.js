@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInfo = document.querySelector('.file-info');
     const videoTitle = document.querySelector('.video-title');
     const fileSize = document.querySelector('.file-size');
+    const urlInput = document.getElementById('videoUrl');
 
     let progressInterval;
 
@@ -24,12 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fileInfo.classList.add('hidden');
         updateProgress(0);
         clearInterval(progressInterval);
+        statusMessage.textContent = 'Converting...';
     };
 
     convertBtn.addEventListener('click', async () => {
-        const url = document.getElementById('videoUrl').value;
-        const format = document.getElementById('format').value;
-        const quality = document.getElementById('quality').value;
+        const url = urlInput.value.trim();
 
         if (!url) {
             alert('Please enter a valid URL');
@@ -40,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
         resetUI();
         conversionStatus.classList.remove('hidden');
         convertBtn.disabled = true;
+
+        // Hide download section while converting
+        downloadSection.classList.add('hidden');
 
         // Simulate progress while actually converting
         let progress = 0;
@@ -56,7 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ url, format, quality }),
+                body: JSON.stringify({
+                    url,
+                    format: document.getElementById('format').value,
+                    quality: document.getElementById('quality').value
+                }),
             });
 
             const data = await response.json();
@@ -74,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     fileSize.textContent = data.size || 'Unknown Size';
                 }
 
+                // Setup download button and show download section
                 downloadBtn.onclick = () => {
                     window.location.href = `/api/download/${data.filename}`;
                 };
@@ -85,13 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(progressInterval);
             statusMessage.textContent = `Error: ${error.message}`;
             updateProgress(0);
+            downloadSection.classList.add('hidden');
         } finally {
             convertBtn.disabled = false;
         }
     });
 
     convertNewBtn.addEventListener('click', () => {
-        document.getElementById('videoUrl').value = '';
+        urlInput.value = '';
         resetUI();
+        urlInput.focus();
     });
 }); 
