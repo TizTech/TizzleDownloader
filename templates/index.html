@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TizzleDownloader - Video & Audio Downloader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-download"></i>
+            </div>
+            <h1>TizzleDownloader</h1>
+            <p>Download videos from YouTube and other platforms</p>
+        </header>
+
+        <div class="converter-box">
+            <div class="url-input">
+                <div class="input-wrapper">
+                    <i class="fas fa-link"></i>
+                    <input type="text" id="videoUrl" placeholder="Paste your video URL here...">
+                </div>
+                <button id="convertBtn">
+                    <span>Convert</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="options">
+                <div class="format-select">
+                    <label><i class="fas fa-file-audio"></i> Format</label>
+                    <select id="format">
+                        <option value="mp3">MP3</option>
+                        <option value="mp4">MP4</option>
+                    </select>
+                </div>
+                <div class="quality-select">
+                    <label><i class="fas fa-gem"></i> Quality</label>
+                    <select id="quality">
+                        <option value="320">320kbps</option>
+                        <option value="256">256kbps</option>
+                        <option value="128">128kbps</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="conversion-status hidden">
+                <div class="status-wrapper">
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="status-text">
+                        <span class="status-message">Converting...</span>
+                        <span class="percentage">0%</span>
+                    </div>
+                </div>
+                <div class="file-info hidden">
+                    <p class="video-title"></p>
+                    <p class="file-size"></p>
+                </div>
+            </div>
+
+            <div class="download-section hidden">
+                <button id="downloadBtn" class="primary-btn">
+                    <i class="fas fa-cloud-download-alt"></i>
+                    <span>Download Now</span>
+                </button>
+                <button id="convertNewBtn" class="secondary-btn">
+                    <i class="fas fa-redo"></i>
+                    <span>Convert Another</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="features-section">
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Fast Conversion</h3>
+                <p>Lightning-fast conversion speed</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Safe & Secure</h3>
+                <p>100% safe downloads</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-infinity"></i>
+                <h3>No Limits</h3>
+                <p>Unlimited conversions</p>
+            </div>
+        </div>
+
+        <div class="donate-section">
+            <a href="https://buymeacoffee.com/tizzle?status=1" target="_blank" class="donate-btn">
+                <i class="fas fa-coffee"></i>
+                <span>Buy me a coffee</span>
+            </a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 
